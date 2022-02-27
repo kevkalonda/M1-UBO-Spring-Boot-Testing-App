@@ -8,7 +8,6 @@ import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-@Data
 public class Gestionnaire extends Utilisateur{
 
 }

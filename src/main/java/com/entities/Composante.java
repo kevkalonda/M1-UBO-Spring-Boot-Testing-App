@@ -17,6 +17,6 @@ public class Composante {
 
     private String nomComposante;
 
-    @OneToMany(mappedBy = "nomFiliereLangue")
+    @OneToMany(mappedBy = "Id")
     private List<Filiere_Langue> filiere_langueList;
 }
