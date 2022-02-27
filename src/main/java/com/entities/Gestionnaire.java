@@ -1,9 +1,14 @@
 package com.entities;
 
+import lombok.Data;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
+@Entity
+@Data
 public class Gestionnaire extends Utilisateur{
 
-    private List<Seance_Formtion> effectue;
-    private List<Cours> participe_A;
 }

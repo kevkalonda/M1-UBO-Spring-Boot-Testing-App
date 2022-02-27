@@ -1,12 +1,21 @@
 package com.entities;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Data;
 
-public class Utilisateur {
+import javax.persistence.*;
 
-    @javax.persistence.Id
+/**
+ * On va representé dans la base de donée une table par entité
+ * Les attributs hérités seront réprésenés dans chaque table
+ * La notion d'heritage ne sera pas représenté dans la base de donnée rélationnelle
+ */
+
+@Entity
+@Data
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Utilisateur {
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String login;
