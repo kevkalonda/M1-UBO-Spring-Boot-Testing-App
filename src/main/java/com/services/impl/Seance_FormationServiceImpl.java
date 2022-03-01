@@ -54,7 +54,7 @@ public class Seance_FormationServiceImpl implements Seance_FormationService {
     }
 
     /**
-     * Cette méthode retourne tous les Utilisateurs
+     * Cette méthode retourne tous les Seance_Formation
      *
      * @return
      */
