@@ -15,6 +15,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository1){
         this.utilisateurRepository=utilisateurRepository1;
     }
+
+    protected UtilisateurServiceImpl obtenirClasse(){
+        return this;
+    }
     /**
      * Enregistre un utilisateur
      *
@@ -67,6 +71,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return null;
     }
     private Utilisateur utilisateurDtoToEntity(UtilisateurDto utilisateurDto){
+
         return null;
     }
     private UtilisateurDto utilisateurEntityToDto(Utilisateur utilisateur){

@@ -1,7 +1,6 @@
 package com.controllers;
 
 import com.dtos.ComposanteDto;
-import com.dtos.DogDto;
 import com.services.impl.ComposanteServiceImpl;
 import org.springframework.web.bind.annotation.*;
 

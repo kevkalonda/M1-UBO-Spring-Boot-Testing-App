@@ -1,8 +1,10 @@
 package com.services.impl;
 
 import com.dtos.ComposanteDto;
+import com.dtos.Filiere_LangueDto;
 import com.dtos.ResponsableDto;
 import com.entities.Composante;
+import com.entities.Filiere_Langue;
 import com.entities.Responsable;
 import com.repositories.ComposanteRepository;
 import com.services.ComposanteService;
@@ -18,6 +20,10 @@ public class ComposanteServiceImpl implements ComposanteService {
     private ComposanteRepository composanteRepository;
     public ComposanteServiceImpl(ComposanteRepository composanteRepos){
         this.composanteRepository= composanteRepos;
+    }
+
+    //pour obtenir la classe
+    protected ComposanteServiceImpl(){
     }
     @Override
     public ComposanteDto enregistrerComposante(ComposanteDto composanteDto) {
@@ -56,30 +62,38 @@ public class ComposanteServiceImpl implements ComposanteService {
      * @param composanteDto
      * @return
      */
-    private Composante composanteDtoToEntity (ComposanteDto composanteDto){
+    protected Composante composanteDtoToEntity (ComposanteDto composanteDto){
         Composante composante = new Composante();
         composante.setNomComposante(composanteDto.getNomComposante());
         composante.setId(composanteDto.getId());
 
-        ResponsableDto responsableDto = composanteDto.getResponsable();
-        Responsable responsable = new Responsable();
-        responsable.setId(responsableDto.getId());
-        responsable.setLogin(responsableDto.getLogin());
-        responsable.setMail(responsableDto.getMail());
+        ResponsableServiceImpl rSI = new ResponsableServiceImpl();
+        composante.setResponsable(rSI.responsableDtoToEntity(composanteDto.getResponsable()));
 
-        //composante du responsable
-        ComposanteDto estRatacher = responsableDto.getEst_Rattache_A();
-        Composante responsableComposante = new Composante();
-
-
-        //responsable.setEst_Rattache_A(responsableDto.getEst_Rattache_A());
-        //composante.setResponsable(composanteDto.getResponsable());
-        //composante.setFiliere_langueList(composanteDto.getFiliere_langueList());
-        return null;
+        List<Filiere_LangueDto> filiere_langueDtoList = composanteDto.getFiliere_langueList();
+        List<Filiere_Langue> filiere_langueList = new ArrayList<>();
+        Filiere_LangueServiceImpl flSI = new Filiere_LangueServiceImpl();
+        for(Filiere_LangueDto filiere_langueDto: filiere_langueDtoList){
+            filiere_langueList.add(flSI.filiere_langueDtoToEntity(filiere_langueDto));
+        }
+        composante.setFiliere_langueList(filiere_langueList);
+        return composante;
     }
 
-    private ComposanteDto composanteEntityToDto(Composante composante){
+    protected ComposanteDto composanteEntityToDto(Composante composante){
+        ComposanteDto composanteDto = new ComposanteDto();
+        composanteDto.setNomComposante(composante.getNomComposante());
+        composanteDto.setId(composante.getId());
+        ResponsableServiceImpl rSI = new ResponsableServiceImpl();
+        composanteDto.setResponsable(rSI.responsableEntityToDto(composante.getResponsable()));
 
+        List<Filiere_Langue> filiere_langueList = composante.getFiliere_langueList();
+        List<Filiere_LangueDto> filiere_langueDtoList = new ArrayList<>();
+        Filiere_LangueServiceImpl flSI = new Filiere_LangueServiceImpl();
+        for(Filiere_Langue filiere_langue : filiere_langueList){
+            filiere_langueDtoList.add(flSI.filiere_langueEntityToDto(filiere_langue));
+        }
+        composanteDto.setFiliere_langueList(filiere_langueDtoList);
         return null;
     }
 }

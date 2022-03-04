@@ -16,6 +16,9 @@ public class GestionnaireServiceImpl implements GestionnaireService {
     public GestionnaireServiceImpl(GestionnaireRepository gestionnaireRepository1){
         this.gestionnaireRepository=gestionnaireRepository1;
     }
+
+    protected GestionnaireServiceImpl (){
+    }
     /**
      * Enregistre un utilisateur
      *
@@ -68,10 +71,24 @@ public class GestionnaireServiceImpl implements GestionnaireService {
         return gestionnaireDtoList;
     }
     private Gestionnaire gestionnaireDtoToEntity(GestionnaireDto gestionnaireDto){
-        return null;
+        Gestionnaire gestionnaire = new Gestionnaire();
+        gestionnaire.setId(gestionnaireDto.getId());
+        gestionnaire.setLogin(gestionnaireDto.getLogin());
+        gestionnaire.setMail(gestionnaireDto.getMail());
+        gestionnaire.setPrenom(gestionnaireDto.getPrenom());
+        gestionnaire.setNomUsuel(gestionnaireDto.getNomUsuel());
+        gestionnaire.setMotDePasse(gestionnaireDto.getMotDePasse());
+        return gestionnaire;
     }
 
     private GestionnaireDto gestionnaireEntityToDto(Gestionnaire gestionnaire){
-        return null;
+        GestionnaireDto gestionnaireDto = new GestionnaireDto();
+        gestionnaireDto.setId(gestionnaire.getId());
+        gestionnaireDto.setLogin(gestionnaire.getLogin());
+        gestionnaireDto.setMail(gestionnaire.getMail());
+        gestionnaireDto.setPrenom(gestionnaire.getPrenom());
+        gestionnaireDto.setNomUsuel(gestionnaire.getNomUsuel());
+        gestionnaireDto.setMotDePasse(gestionnaire.getMotDePasse());
+        return gestionnaireDto;
     }
 }

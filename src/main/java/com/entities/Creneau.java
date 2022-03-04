@@ -1,5 +1,6 @@
 package com.entities;
 
+import com.dtos.Type_seanceDto;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ public class Creneau {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private int duree;
-    private Type_CM type;
+    private Type_seanceDto type;
     private LocalDate date_heure;
     @OneToMany(mappedBy = "Id")
     private List<Seance_Formation> seanceFormationList;

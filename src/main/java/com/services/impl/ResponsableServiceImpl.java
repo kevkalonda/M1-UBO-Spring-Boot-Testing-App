@@ -1,6 +1,8 @@
 package com.services.impl;
 
+import com.dtos.ComposanteDto;
 import com.dtos.ResponsableDto;
+import com.entities.Composante;
 import com.entities.Responsable;
 import com.repositories.ResponsableRepository;
 import com.services.ResponsableService;
@@ -14,6 +16,9 @@ public class ResponsableServiceImpl implements ResponsableService {
     private ResponsableRepository responsableRepository;
     public ResponsableServiceImpl(ResponsableRepository responsableRepository1){
         this.responsableRepository=responsableRepository1;
+    }
+
+    protected ResponsableServiceImpl (){
     }
     /**
      * Enregistre un utilisateur
@@ -66,11 +71,34 @@ public class ResponsableServiceImpl implements ResponsableService {
         });
         return responsableDtos;
     }
-    private  ResponsableDto responsableEntityToDto(Responsable responsable){
-        return null;
+    protected   ResponsableDto responsableEntityToDto(Responsable responsable){
+        ResponsableDto responsableDto = new ResponsableDto();
+        responsableDto.setId(responsable.getId());
+        responsableDto.setLogin(responsable.getLogin());
+        responsableDto.setMail(responsable.getMail());
+        responsableDto.setPrenom(responsable.getPrenom());
+        responsableDto.setMotDePasse(responsable.getMotDePasse());
+        responsableDto.setNomUsuel(responsable.getNomUsuel());
+
+        //tables de jointure
+        ComposanteServiceImpl cSI = new ComposanteServiceImpl();
+        Composante composante= responsable.getEst_Rattache_A();
+        responsableDto.setEst_Rattache_A(cSI.composanteEntityToDto(composante));
+        return responsableDto;
     }
 
-    private Responsable responsableDtoToEntity(ResponsableDto responsableDto){
-        return null;
+    protected Responsable responsableDtoToEntity(ResponsableDto responsableDto){
+        Responsable responsable = new Responsable();
+        responsable.setId(responsableDto.getId());
+        responsable.setLogin(responsableDto.getLogin());
+        responsable.setMail(responsableDto.getMail());
+        responsable.setPrenom(responsableDto.getPrenom());
+        responsable.setMotDePasse(responsableDto.getMotDePasse());
+        responsable.setNomUsuel(responsableDto.getNomUsuel());
+
+        ComposanteServiceImpl cSI = new ComposanteServiceImpl();
+        ComposanteDto composanteDto = responsableDto.getEst_Rattache_A();
+        responsable.setEst_Rattache_A(cSI.composanteDtoToEntity(composanteDto));
+        return responsable;
     }
 }
