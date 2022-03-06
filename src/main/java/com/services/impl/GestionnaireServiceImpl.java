@@ -17,8 +17,6 @@ public class GestionnaireServiceImpl implements GestionnaireService {
         this.gestionnaireRepository=gestionnaireRepository1;
     }
 
-    protected GestionnaireServiceImpl (){
-    }
     /**
      * Enregistre un utilisateur
      *
@@ -27,9 +25,10 @@ public class GestionnaireServiceImpl implements GestionnaireService {
      */
     @Override
     public GestionnaireDto enregistrerGestionnaire(GestionnaireDto gestionnaireDto) {
-        Gestionnaire gestionnaire = this.gestionnaireDtoToEntity(gestionnaireDto);
+        MapperServiceImpl mapperService = new MapperServiceImpl();
+        Gestionnaire gestionnaire = mapperService.gestionnaireDtoToEntity(gestionnaireDto);
         gestionnaire = this.gestionnaireRepository.save(gestionnaire);
-        return gestionnaireEntityToDto(gestionnaire);
+        return mapperService.gestionnaireEntityToDto(gestionnaire);
     }
 
     /**
@@ -40,8 +39,9 @@ public class GestionnaireServiceImpl implements GestionnaireService {
      */
     @Override
     public GestionnaireDto obtenirGestionnaireParId(Long idGestionnaire) {
+        MapperServiceImpl mapperService = new MapperServiceImpl();
         Gestionnaire gestionnaire = this.gestionnaireRepository.findById(idGestionnaire).orElseThrow(() -> new EntityNotFoundException("Gestionnaire not found"));
-        return gestionnaireEntityToDto(gestionnaire);
+        return mapperService.gestionnaireEntityToDto(gestionnaire);
     }
 
     /**
@@ -63,32 +63,16 @@ public class GestionnaireServiceImpl implements GestionnaireService {
      */
     @Override
     public List<GestionnaireDto> obtenirTousLesGestionnaires() {
+        MapperServiceImpl mapperService = new MapperServiceImpl();
         List<GestionnaireDto> gestionnaireDtoList = new ArrayList<>();
         List<Gestionnaire> gestionnaires = this.gestionnaireRepository.findAll();
         gestionnaires.forEach(gestionnaire -> {
-            gestionnaireDtoList.add(gestionnaireEntityToDto(gestionnaire));
+            System.out.println("appelle de la foncion dans service ok");
+            gestionnaireDtoList.add(mapperService.gestionnaireEntityToDto(gestionnaire));
         });
         return gestionnaireDtoList;
     }
-    private Gestionnaire gestionnaireDtoToEntity(GestionnaireDto gestionnaireDto){
-        Gestionnaire gestionnaire = new Gestionnaire();
-        gestionnaire.setId(gestionnaireDto.getId());
-        gestionnaire.setLogin(gestionnaireDto.getLogin());
-        gestionnaire.setMail(gestionnaireDto.getMail());
-        gestionnaire.setPrenom(gestionnaireDto.getPrenom());
-        gestionnaire.setNomUsuel(gestionnaireDto.getNomUsuel());
-        gestionnaire.setMotDePasse(gestionnaireDto.getMotDePasse());
-        return gestionnaire;
-    }
 
-    private GestionnaireDto gestionnaireEntityToDto(Gestionnaire gestionnaire){
-        GestionnaireDto gestionnaireDto = new GestionnaireDto();
-        gestionnaireDto.setId(gestionnaire.getId());
-        gestionnaireDto.setLogin(gestionnaire.getLogin());
-        gestionnaireDto.setMail(gestionnaire.getMail());
-        gestionnaireDto.setPrenom(gestionnaire.getPrenom());
-        gestionnaireDto.setNomUsuel(gestionnaire.getNomUsuel());
-        gestionnaireDto.setMotDePasse(gestionnaire.getMotDePasse());
-        return gestionnaireDto;
-    }
+
+
 }

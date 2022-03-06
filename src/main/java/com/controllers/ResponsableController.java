@@ -20,6 +20,7 @@ public class ResponsableController {
 
     @GetMapping("/{id}")
     public ResponsableDto obtenirResponsable(@PathVariable Long id){
+        System.out.println("appelle de la foncion dans controlleur ok");
         return this.responsableService.obtenirResponsableParId(id);
     }
 

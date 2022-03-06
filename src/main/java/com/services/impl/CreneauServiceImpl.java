@@ -21,19 +21,20 @@ public class CreneauServiceImpl implements CreneauService {
         this.creneauRepository= creneauRepository1;
     }
 
-    protected CreneauServiceImpl (){
-    }
     @Override
     public CreneauDto enregistrerCreneau(CreneauDto creneauDto) {
-        Creneau creneau = creneauDtoToEntity(creneauDto);
+        MapperServiceImpl mapperService = new MapperServiceImpl();
+        Creneau creneau = mapperService.creneauDtoToEntity(creneauDto);
         creneau = this.creneauRepository.save(creneau);
-        return creneauEntityToDto(creneau);
+        return mapperService.creneauEntityToDto(creneau);
     }
 
     @Override
     public CreneauDto obtenirCreneauParId(Long idCreneau) {
+        MapperServiceImpl mapperService = new MapperServiceImpl();
+
         Creneau creneau= this.creneauRepository.findById(idCreneau).orElseThrow(() -> new EntityNotFoundException("creneau not found"));
-        return creneauEntityToDto(creneau);
+        return mapperService.creneauEntityToDto(creneau);
     }
 
     @Override
@@ -44,52 +45,13 @@ public class CreneauServiceImpl implements CreneauService {
 
     @Override
     public List<CreneauDto> obtenirTousLesCreneaux() {
+        MapperServiceImpl mapperService = new MapperServiceImpl();
+
         List<CreneauDto> creneauDtoList = new ArrayList<>();
         List<Creneau> creneauList = this.creneauRepository.findAll();
         creneauList.forEach(creneau -> {
-            creneauDtoList.add(creneauEntityToDto(creneau));
+            creneauDtoList.add(mapperService.creneauEntityToDto(creneau));
         });
         return creneauDtoList;
-    }
-    protected CreneauDto creneauEntityToDto (Creneau creneau){
-        CreneauDto creneauDto = new CreneauDto();
-        creneauDto.setId(creneau.getId());
-        creneauDto.setDate_heure(creneau.getDate_heure());
-        creneauDto.setDuree(creneau.getDuree());
-        creneauDto.setType(creneau.getType());
-
-        //jointure
-        CoursServiceImpl crsSI = new CoursServiceImpl();
-        Cours cours = creneau.getCours();
-        creneauDto.setCours(crsSI.coursEntityToDto(cours));
-
-        List<Seance_Formation> seance_formations = creneau.getSeanceFormationList();
-        List<Seance_FormationDto> seanceFormationDtoList = new ArrayList<>();
-        Seance_FormationServiceImpl sfSI = new Seance_FormationServiceImpl();
-        for(Seance_Formation seance_formation : seance_formations){
-            seanceFormationDtoList.add(sfSI.seanceFormationEntityToDto(seance_formation));
-        }
-        creneauDto.setSeanceFormationList(seanceFormationDtoList);
-        return creneauDto;
-    }
-    protected Creneau creneauDtoToEntity(CreneauDto creneauDto){
-        Creneau creneau = new Creneau();
-        creneau.setId(creneauDto.getId());
-        creneau.setDate_heure(creneauDto.getDate_heure());
-        creneau.setDuree(creneauDto.getDuree());
-        creneau.setType(creneauDto.getType());
-
-        CoursServiceImpl crsSI = new CoursServiceImpl();
-        CoursDto coursDto = creneauDto.getCours();
-        creneau.setCours(crsSI.coursDtoToEntiy(coursDto));
-
-        List<Seance_FormationDto> seanceFormationDtoList = creneauDto.getSeanceFormationList();
-        List<Seance_Formation> seance_formations = new ArrayList<>();
-        Seance_FormationServiceImpl sfSI = new Seance_FormationServiceImpl();
-        for(Seance_FormationDto seance_formationDto : seanceFormationDtoList){
-            seance_formations.add(sfSI.seanceFormationDtoToEntity(seance_formationDto));
-        }
-        creneau.setSeanceFormationList(seance_formations);
-        return creneau;
     }
 }

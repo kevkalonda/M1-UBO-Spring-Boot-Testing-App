@@ -15,10 +15,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository1){
         this.utilisateurRepository=utilisateurRepository1;
     }
-
-    protected UtilisateurServiceImpl obtenirClasse(){
-        return this;
-    }
     /**
      * Enregistre un utilisateur
      *

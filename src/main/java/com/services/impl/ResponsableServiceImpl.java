@@ -17,9 +17,6 @@ public class ResponsableServiceImpl implements ResponsableService {
     public ResponsableServiceImpl(ResponsableRepository responsableRepository1){
         this.responsableRepository=responsableRepository1;
     }
-
-    protected ResponsableServiceImpl (){
-    }
     /**
      * Enregistre un utilisateur
      *
@@ -28,9 +25,10 @@ public class ResponsableServiceImpl implements ResponsableService {
      */
     @Override
     public ResponsableDto enregistrerResponsable(ResponsableDto responsableDto) {
-        Responsable responsable = this.responsableDtoToEntity(responsableDto);
+        MapperServiceImpl mapperService = new MapperServiceImpl();
+        Responsable responsable = mapperService.responsableDtoToEntity(responsableDto);
         responsable = this.responsableRepository.save(responsable);
-        return responsableEntityToDto(responsable);
+        return mapperService.responsableEntityToDto(responsable);
     }
 
     /**
@@ -41,8 +39,9 @@ public class ResponsableServiceImpl implements ResponsableService {
      */
     @Override
     public ResponsableDto obtenirResponsableParId(Long idResponsable) {
+        MapperServiceImpl mapperService = new MapperServiceImpl();
         Responsable responsable = this.responsableRepository.findById(idResponsable).orElseThrow(() -> new EntityNotFoundException("Responsable not found"));
-        return this.responsableEntityToDto(responsable);
+        return mapperService.responsableEntityToDto(responsable);
     }
 
     /**
@@ -64,41 +63,17 @@ public class ResponsableServiceImpl implements ResponsableService {
      */
     @Override
     public List<ResponsableDto> obtenirTousLesResponsables() {
+        MapperServiceImpl mapperService = new MapperServiceImpl();
         List<ResponsableDto> responsableDtos = new ArrayList<>();
-        List<Responsable> responsables = this.responsableRepository.findAll();
-        responsables.forEach(responsable -> {
-            responsableDtos.add(responsableEntityToDto(responsable));
-        });
+        List<Responsable> responsables = responsableRepository.findAll();
+        if(responsables != null){
+            responsables.forEach(responsable -> {
+                responsableDtos.add(mapperService.responsableEntityToDto(responsable));
+            });
+        }
         return responsableDtos;
     }
-    protected   ResponsableDto responsableEntityToDto(Responsable responsable){
-        ResponsableDto responsableDto = new ResponsableDto();
-        responsableDto.setId(responsable.getId());
-        responsableDto.setLogin(responsable.getLogin());
-        responsableDto.setMail(responsable.getMail());
-        responsableDto.setPrenom(responsable.getPrenom());
-        responsableDto.setMotDePasse(responsable.getMotDePasse());
-        responsableDto.setNomUsuel(responsable.getNomUsuel());
 
-        //tables de jointure
-        ComposanteServiceImpl cSI = new ComposanteServiceImpl();
-        Composante composante= responsable.getEst_Rattache_A();
-        responsableDto.setEst_Rattache_A(cSI.composanteEntityToDto(composante));
-        return responsableDto;
-    }
 
-    protected Responsable responsableDtoToEntity(ResponsableDto responsableDto){
-        Responsable responsable = new Responsable();
-        responsable.setId(responsableDto.getId());
-        responsable.setLogin(responsableDto.getLogin());
-        responsable.setMail(responsableDto.getMail());
-        responsable.setPrenom(responsableDto.getPrenom());
-        responsable.setMotDePasse(responsableDto.getMotDePasse());
-        responsable.setNomUsuel(responsableDto.getNomUsuel());
 
-        ComposanteServiceImpl cSI = new ComposanteServiceImpl();
-        ComposanteDto composanteDto = responsableDto.getEst_Rattache_A();
-        responsable.setEst_Rattache_A(cSI.composanteDtoToEntity(composanteDto));
-        return responsable;
-    }
 }

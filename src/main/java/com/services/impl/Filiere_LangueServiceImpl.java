@@ -21,19 +21,19 @@ public class Filiere_LangueServiceImpl implements Filiere_LangueService {
         this.filiereLangueRepository=filiereLangueRepository1;
     }
 
-    protected Filiere_LangueServiceImpl  (){
-    }
     @Override
     public Filiere_LangueDto enregistrerFiliereLangue(Filiere_LangueDto filiere_langueDto) {
-        Filiere_Langue filiere_langue = filiere_langueDtoToEntity(filiere_langueDto);
+        MapperServiceImpl mapperService = new MapperServiceImpl();
+        Filiere_Langue filiere_langue = mapperService.filiere_langueDtoToEntity(filiere_langueDto);
         filiere_langue = this.filiereLangueRepository.save(filiere_langue);
-        return filiere_langueEntityToDto(filiere_langue);
+        return mapperService.filiere_langueEntityToDto(filiere_langue);
     }
 
     @Override
     public Filiere_LangueDto obtenirFiliereLangueParId(Long idFiliereLangue) {
+        MapperServiceImpl mapperService = new MapperServiceImpl();
         Filiere_Langue filiere_langue = this.filiereLangueRepository.findById(idFiliereLangue).orElseThrow(() -> new EntityNotFoundException("Filiere not found"));
-        return filiere_langueEntityToDto(filiere_langue);
+        return mapperService.filiere_langueEntityToDto(filiere_langue);
     }
 
     @Override
@@ -44,51 +44,14 @@ public class Filiere_LangueServiceImpl implements Filiere_LangueService {
 
     @Override
     public List<Filiere_LangueDto> obtenirToutesLesFilieresLangues() {
+        MapperServiceImpl mapperService = new MapperServiceImpl();
+
         List<Filiere_LangueDto> filiere_langueDtos = new ArrayList<>();
         List<Filiere_Langue> filiere_langueList = this.filiereLangueRepository.findAll();
         filiere_langueList.forEach(filiere_langue -> {
-            filiere_langueDtos.add(filiere_langueEntityToDto(filiere_langue));
+            filiere_langueDtos.add(mapperService.filiere_langueEntityToDto(filiere_langue));
         });
         return filiere_langueDtos;
     }
-    protected Filiere_LangueDto filiere_langueEntityToDto(Filiere_Langue filiere_langue){
-        Filiere_LangueDto filiere_langueDto = new Filiere_LangueDto();
-        filiere_langueDto.setId(filiere_langue.getId());
-        filiere_langueDto.setCodeFiliereLangue(filiere_langue.getCodeFiliereLangue());
-        filiere_langueDto.setNomFiliereLangue(filiere_langue.getNomFiliereLangue());
 
-        //table de jointure
-        ComposanteServiceImpl cSI = new ComposanteServiceImpl();
-        Composante composante = filiere_langue.getDepend_De();
-        filiere_langueDto.setDepend_De(cSI.composanteEntityToDto(composante));
-
-        List<Cours> coursList = filiere_langue.getCoursList();
-        List<CoursDto> coursDtoList = new ArrayList<>();
-        CoursServiceImpl crsSI = new CoursServiceImpl();
-        for(Cours cours : coursList){
-            coursDtoList.add(crsSI.coursEntityToDto(cours));
-        }
-        filiere_langueDto.setCoursList(coursDtoList);
-        return filiere_langueDto;
-    }
-
-    protected Filiere_Langue filiere_langueDtoToEntity(Filiere_LangueDto filiere_langueDto){
-        Filiere_Langue filiere_langue = new Filiere_Langue();
-        filiere_langue.setId(filiere_langueDto.getId());
-        filiere_langue.setCodeFiliereLangue(filiere_langueDto.getCodeFiliereLangue());
-        filiere_langue.setNomFiliereLangue(filiere_langueDto.getNomFiliereLangue());
-
-        ComposanteServiceImpl cSI = new ComposanteServiceImpl();
-        ComposanteDto composanteDto = filiere_langueDto.getDepend_De();
-        filiere_langue.setDepend_De(cSI.composanteDtoToEntity(composanteDto));
-
-        List<CoursDto> coursDtoList = filiere_langueDto.getCoursList();
-        List<Cours> coursList = new ArrayList<>();
-        CoursServiceImpl crsSI = new CoursServiceImpl();
-        for(CoursDto coursDto: coursDtoList){
-            coursList.add(crsSI.coursDtoToEntiy(coursDto));
-        }
-        filiere_langue.setCoursList(coursList);
-        return filiere_langue;
-    }
 }

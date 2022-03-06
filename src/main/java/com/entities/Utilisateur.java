@@ -12,11 +12,12 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Utilisateur {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="user")
+public class Utilisateur {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String login;
     private String motDePasse;
