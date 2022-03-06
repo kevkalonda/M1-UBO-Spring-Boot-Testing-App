@@ -13,22 +13,41 @@ public class ResponsableController {
         this.responsableService = responsableService;
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping
     public List<ResponsableDto> obtenirToutLesResponsable(){
         return  this.responsableService.obtenirTousLesResponsables();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponsableDto obtenirResponsable(@PathVariable Long id){
         System.out.println("appelle de la foncion dans controlleur ok");
         return this.responsableService.obtenirResponsableParId(id);
     }
 
+    /**
+     *
+     * @param responsableDto
+     * @return
+     */
     @PostMapping
     public ResponsableDto enregistrerResponsable(final @RequestBody ResponsableDto responsableDto){
         return this.responsableService.enregistrerResponsable(responsableDto);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public boolean supprimerResponsable(@PathVariable Long id){
         return this.responsableService.supprimerResponsableParId(id);

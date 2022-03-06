@@ -16,21 +16,40 @@ public class GestionnaireController {
         this.gestionnaireService = gestionnaireService;
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping
     public List<GestionnaireDto> obtenirToutLesGestionnaire(){
         return  this.gestionnaireService.obtenirTousLesGestionnaires();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public GestionnaireDto obtenirGestionnaire(@PathVariable Long id){
         return this.gestionnaireService.obtenirGestionnaireParId(id);
     }
 
+    /**
+     *
+     * @param gestionnaireDto
+     * @return
+     */
     @PostMapping
     public GestionnaireDto enregistrerGestionnaire(final @RequestBody GestionnaireDto gestionnaireDto){
         return this.gestionnaireService.enregistrerGestionnaire(gestionnaireDto);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public boolean supprimerGestionnaire(@PathVariable Long id){
         return this.gestionnaireService.supprimerGestionnaireParId(id);

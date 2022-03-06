@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapperServiceImpl implements MapperService {
+    /**
+     *
+     * @param vacataireDto
+     * @return
+     */
     @Override
     public Vacataire vacataireDtoToEntity(VacataireDto vacataireDto) {
         Vacataire v = new Vacataire();
@@ -36,6 +41,11 @@ public class MapperServiceImpl implements MapperService {
         return v;
     }
 
+    /**
+     *
+     * @param vacataire
+     * @return
+     */
     @Override
     public VacataireDto vacataireEntityToDto(Vacataire vacataire) {
         VacataireDto v = new VacataireDto();
@@ -64,16 +74,45 @@ public class MapperServiceImpl implements MapperService {
         return v;
     }
 
+    /**
+     *
+     * @param utilisateurDto
+     * @return
+     */
     @Override
     public Utilisateur utilisateurDtoToEntity(UtilisateurDto utilisateurDto) {
-        return null;
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setId(utilisateurDto.getId());
+        utilisateur.setLogin(utilisateurDto.getLogin());
+        utilisateur.setMail(utilisateurDto.getMail());
+        utilisateur.setNomUsuel(utilisateurDto.getNomUsuel());
+        utilisateur.setPrenom(utilisateurDto.getPrenom());
+        utilisateur.setMotDePasse(utilisateurDto.getMotDePasse());
+        return utilisateur;
     }
 
+    /**
+     *
+     * @param utilisateur
+     * @return
+     */
     @Override
     public UtilisateurDto utilisateurEntityToDto(Utilisateur utilisateur) {
-        return null;
+        UtilisateurDto utilisateurDto = new UtilisateurDto();
+        utilisateurDto.setId(utilisateur.getId());
+        utilisateurDto.setLogin(utilisateur.getLogin());
+        utilisateurDto.setMail(utilisateur.getMail());
+        utilisateurDto.setNomUsuel(utilisateur.getNomUsuel());
+        utilisateurDto.setPrenom(utilisateur.getPrenom());
+        utilisateurDto.setMotDePasse(utilisateur.getMotDePasse());
+        return utilisateurDto;
     }
 
+    /**
+     *
+     * @param seance_formationDto
+     * @return
+     */
     @Override
     public Seance_Formation seanceFormationDtoToEntity(Seance_FormationDto seance_formationDto) {
         Seance_Formation seance_formation = new Seance_Formation();
@@ -93,6 +132,11 @@ public class MapperServiceImpl implements MapperService {
         return null;
     }
 
+    /**
+     *
+     * @param seance_formation
+     * @return
+     */
     @Override
     public Seance_FormationDto seanceFormationEntityToDto(Seance_Formation seance_formation) {
         Seance_FormationDto seance_formationDto = new Seance_FormationDto();
@@ -112,6 +156,11 @@ public class MapperServiceImpl implements MapperService {
         return seance_formationDto;
     }
 
+    /**
+     *
+     * @param responsableDto
+     * @return
+     */
     @Override
     public Responsable responsableDtoToEntity(ResponsableDto responsableDto) {
         Responsable responsable = new Responsable();
@@ -128,6 +177,11 @@ public class MapperServiceImpl implements MapperService {
         return responsable;
     }
 
+    /**
+     *
+     * @param responsable
+     * @return
+     */
     @Override
     public ResponsableDto responsableEntityToDto(Responsable responsable) {
         ResponsableDto responsableDto = new ResponsableDto();
@@ -144,6 +198,11 @@ public class MapperServiceImpl implements MapperService {
         return responsableDto;
     }
 
+    /**
+     *
+     * @param gestionnaireDto
+     * @return
+     */
     @Override
     public Gestionnaire gestionnaireDtoToEntity(GestionnaireDto gestionnaireDto) {
         Gestionnaire gestionnaire = new Gestionnaire();
@@ -156,6 +215,11 @@ public class MapperServiceImpl implements MapperService {
         return gestionnaire;
     }
 
+    /**
+     *
+     * @param gestionnaire
+     * @return
+     */
     @Override
     public GestionnaireDto gestionnaireEntityToDto(Gestionnaire gestionnaire) {
         GestionnaireDto gestionnaireDto = new GestionnaireDto();
@@ -165,10 +229,14 @@ public class MapperServiceImpl implements MapperService {
         gestionnaireDto.setPrenom(gestionnaire.getPrenom());
         gestionnaireDto.setNomUsuel(gestionnaire.getNomUsuel());
         gestionnaireDto.setMotDePasse(gestionnaire.getMotDePasse());
-        System.out.println("appelle de la foncion dans ETDTO ok");
         return gestionnaireDto;
     }
 
+    /**
+     *
+     * @param filiere_langue
+     * @return
+     */
     @Override
     public Filiere_LangueDto filiere_langueEntityToDto(Filiere_Langue filiere_langue) {
         Filiere_LangueDto filiere_langueDto = new Filiere_LangueDto();
@@ -189,6 +257,11 @@ public class MapperServiceImpl implements MapperService {
         return filiere_langueDto;
     }
 
+    /**
+     *
+     * @param filiere_langueDto
+     * @return
+     */
     @Override
     public Filiere_Langue filiere_langueDtoToEntity(Filiere_LangueDto filiere_langueDto) {
         Filiere_Langue filiere_langue = new Filiere_Langue();
@@ -208,6 +281,11 @@ public class MapperServiceImpl implements MapperService {
         return filiere_langue;
     }
 
+    /**
+     *
+     * @param creneau
+     * @return
+     */
     @Override
     public CreneauDto creneauEntityToDto(Creneau creneau) {
         CreneauDto creneauDto = new CreneauDto();
@@ -229,6 +307,11 @@ public class MapperServiceImpl implements MapperService {
         return creneauDto;
     }
 
+    /**
+     *
+     * @param creneauDto
+     * @return
+     */
     @Override
     public Creneau creneauDtoToEntity(CreneauDto creneauDto) {
         Creneau creneau = new Creneau();
@@ -249,6 +332,11 @@ public class MapperServiceImpl implements MapperService {
         return creneau;
     }
 
+    /**
+     *
+     * @param coursDto
+     * @return
+     */
     @Override
     public Cours coursDtoToEntiy(CoursDto coursDto) {
         Cours cours =new Cours();
@@ -278,6 +366,11 @@ public class MapperServiceImpl implements MapperService {
         return null;
     }
 
+    /**
+     *
+     * @param cours
+     * @return
+     */
     @Override
     public CoursDto coursEntityToDto(Cours cours) {
         CoursDto coursDto = new  CoursDto();
@@ -307,6 +400,11 @@ public class MapperServiceImpl implements MapperService {
         return coursDto;
     }
 
+    /**
+     *
+     * @param composante
+     * @return
+     */
     @Override
     public ComposanteDto composanteEntityToDto(Composante composante) {
         ComposanteDto composanteDto = new ComposanteDto();
@@ -323,6 +421,11 @@ public class MapperServiceImpl implements MapperService {
         return composanteDto;
     }
 
+    /**
+     *
+     * @param composanteDto
+     * @return
+     */
     @Override
     public Composante composanteDtoToEntity(ComposanteDto composanteDto) {
         Composante composante = new Composante();

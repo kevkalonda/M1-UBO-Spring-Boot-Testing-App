@@ -13,21 +13,40 @@ public class UtilisateurController {
         this.utilisateurService = utilisateurService;
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping
     public List<UtilisateurDto> obtenirToutLesUtilisateur(){
         return  this.utilisateurService.obtenirTousLesUtulisateurs();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public UtilisateurDto obtenirUtilisateur(@PathVariable Long id){
         return this.utilisateurService.obtenirUtilisateurParId(id);
     }
 
+    /**
+     *
+     * @param responsableDto
+     * @return
+     */
     @PostMapping
     public UtilisateurDto enregistrerUtilisateur(final @RequestBody UtilisateurDto responsableDto){
         return this.utilisateurService.enregisterUtilisateur(responsableDto);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public boolean supprimerUtilisateur(@PathVariable Long id){
         return this.utilisateurService.supprimerUtilisateurParId(id);

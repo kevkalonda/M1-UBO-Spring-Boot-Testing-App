@@ -18,7 +18,7 @@ public class GestionnaireServiceImpl implements GestionnaireService {
     }
 
     /**
-     * Enregistre un utilisateur
+     * Enregistre un gestionnaire
      *
      * @param gestionnaireDto
      * @return
@@ -32,7 +32,7 @@ public class GestionnaireServiceImpl implements GestionnaireService {
     }
 
     /**
-     * La méthode renvoie l'utilisateur dont l'id est passé en paramettre
+     * La méthode renvoie l'gestionnaire dont l'id est passé en paramettre
      *
      * @param idGestionnaire
      * @return
@@ -45,7 +45,7 @@ public class GestionnaireServiceImpl implements GestionnaireService {
     }
 
     /**
-     * La methode renvoinun booleab si l'utilisateur dont l'id passé en paramettre a été suppimé
+     * La methode renvoinun booleab si l'gestionnaire dont l'id passé en paramettre a été suppimé
      *
      * @param idGestionnaire
      * @return
@@ -57,7 +57,7 @@ public class GestionnaireServiceImpl implements GestionnaireService {
     }
 
     /**
-     * Cette méthode retourne tous les Utilisateurs
+     * Cette méthode retourne tous les gestionnaires
      *
      * @return
      */
@@ -67,7 +67,6 @@ public class GestionnaireServiceImpl implements GestionnaireService {
         List<GestionnaireDto> gestionnaireDtoList = new ArrayList<>();
         List<Gestionnaire> gestionnaires = this.gestionnaireRepository.findAll();
         gestionnaires.forEach(gestionnaire -> {
-            System.out.println("appelle de la foncion dans service ok");
             gestionnaireDtoList.add(mapperService.gestionnaireEntityToDto(gestionnaire));
         });
         return gestionnaireDtoList;

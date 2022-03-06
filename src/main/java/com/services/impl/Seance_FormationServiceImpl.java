@@ -22,7 +22,7 @@ public class Seance_FormationServiceImpl implements Seance_FormationService {
     }
 
     /**
-     * Enregistre un utilisateur
+     * Enregistre la seance formation
      *
      * @param seance_formationDto
      * @return
@@ -36,7 +36,7 @@ public class Seance_FormationServiceImpl implements Seance_FormationService {
     }
 
     /**
-     * La méthode renvoie l'utilisateur dont l'id est passé en paramettre
+     * La méthode renvoie la seance formation dont l'id est passé en paramettre
      *
      * @param idSeanceFormation
      * @return
@@ -49,7 +49,7 @@ public class Seance_FormationServiceImpl implements Seance_FormationService {
     }
 
     /**
-     * La methode renvoinun booleab si l'utilisateur dont l'id passé en paramettre a été suppimé
+     * La methode renvoinun booleab si la seance formation dont l'id passé en paramettre a été suppimé
      *
      * @param idSeanceFormatio
      * @return

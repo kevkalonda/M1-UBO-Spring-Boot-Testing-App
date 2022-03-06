@@ -18,7 +18,7 @@ public class ResponsableServiceImpl implements ResponsableService {
         this.responsableRepository=responsableRepository1;
     }
     /**
-     * Enregistre un utilisateur
+     * Enregistre un responsable
      *
      * @param responsableDto
      * @return
@@ -32,7 +32,7 @@ public class ResponsableServiceImpl implements ResponsableService {
     }
 
     /**
-     * La méthode renvoie l'utilisateur dont l'id est passé en paramettre
+     * La méthode renvoie responsable dont l'id est passé en paramettre
      *
      * @param idResponsable
      * @return
@@ -45,7 +45,7 @@ public class ResponsableServiceImpl implements ResponsableService {
     }
 
     /**
-     * La methode renvoinun booleab si l'utilisateur dont l'id passé en paramettre a été suppimé
+     * La methode renvoinun booleab si responsable dont l'id passé en paramettre a été suppimé
      *
      * @param idResponsable
      * @return
@@ -57,7 +57,7 @@ public class ResponsableServiceImpl implements ResponsableService {
     }
 
     /**
-     * Cette méthode retourne tous les Utilisateurs
+     * Cette méthode retourne tous les responsables
      *
      * @return
      */
