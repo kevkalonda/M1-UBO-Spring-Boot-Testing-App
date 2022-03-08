@@ -13,7 +13,7 @@ public class Composante {
     private Long Id;
 
     @OneToOne
-    private Responsable responsable;
+    private List<Responsable> responsableList;
 
     private String nomComposante;
 

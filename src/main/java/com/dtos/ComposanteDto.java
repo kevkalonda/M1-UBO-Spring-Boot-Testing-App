@@ -9,7 +9,7 @@ import java.util.List;
 public class ComposanteDto {
 
     private Long Id;
-    private ResponsableDto responsable;
+    private List<ResponsableDto> responsableDtos;
     private String nomComposante;
     private List<Filiere_LangueDto> filiere_langueList;
 }

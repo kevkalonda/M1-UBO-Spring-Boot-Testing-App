@@ -23,21 +23,25 @@ public class MapperServiceImpl implements MapperService {
         v.setNomUsuel(vacataireDto.getNomUsuel());
         v.setMail(vacataireDto.getMail());
 
-        //est effectué par une liste de seance formation
-        List<Seance_FormationDto> seance_formationsDto = vacataireDto.getEffectue();
-        List<Seance_Formation> formationList = new ArrayList<>();
-        for(Seance_FormationDto sf: seance_formationsDto){
-            formationList.add(this.seanceFormationDtoToEntity(sf));
+        if(vacataireDto.getEffectue() != null){
+            //est effectué par une liste de seance formation
+            List<Seance_FormationDto> seance_formationsDto = vacataireDto.getEffectue();
+            List<Seance_Formation> formationList = new ArrayList<>();
+            for(Seance_FormationDto sf: seance_formationsDto){
+                formationList.add(this.seanceFormationDtoToEntity(sf));
+            }
+            v.setEffectue(formationList);
         }
-        v.setEffectue(formationList);
 
-        //partici pe à 0 ou plusieurs Cours
-        List<CoursDto> coursListDto = vacataireDto.getParticipe_A();
-        List<Cours> coursList = new ArrayList<>();
-        for(CoursDto cours : coursListDto){
-            coursList.add(this.coursDtoToEntiy(cours));
+        if(vacataireDto.getParticipe_A() != null){
+            //partici pe à 0 ou plusieurs Cours
+            List<CoursDto> coursListDto = vacataireDto.getParticipe_A();
+            List<Cours> coursList = new ArrayList<>();
+            for(CoursDto cours : coursListDto){
+                coursList.add(this.coursDtoToEntiy(cours));
+            }
+            v.setParticipe_A(coursList);
         }
-        v.setParticipe_A(coursList);
         return v;
     }
 
@@ -56,21 +60,26 @@ public class MapperServiceImpl implements MapperService {
         v.setNomUsuel(vacataire.getNomUsuel());
         v.setMail(vacataire.getMail());
 
-        //est effectué par une liste de seance formation
-        List<Seance_Formation> seance_formations = vacataire.getEffectue();
-        List<Seance_FormationDto> formationDtoList = new ArrayList<>();
-        for(Seance_Formation sf: seance_formations){
-            formationDtoList.add(this.seanceFormationEntityToDto(sf));
+        if(vacataire.getEffectue() != null){
+            //est effectué par une liste de seance formation
+            List<Seance_Formation> seance_formations = vacataire.getEffectue();
+            List<Seance_FormationDto> formationDtoList = new ArrayList<>();
+            for(Seance_Formation sf: seance_formations){
+                formationDtoList.add(this.seanceFormationEntityToDto(sf));
+            }
+            v.setEffectue(formationDtoList);
         }
-        v.setEffectue(formationDtoList);
 
-        //participe à 0 ou plusieurs Cours
-        List<Cours> coursList = vacataire.getParticipe_A();
-        List<CoursDto> coursDtoList = new ArrayList<>();
-        for(Cours cours : coursList){
-            coursDtoList.add(this.coursEntityToDto(cours));
+        if(vacataire.getParticipe_A() != null){
+            //participe à 0 ou plusieurs Cours
+            List<Cours> coursList = vacataire.getParticipe_A();
+            List<CoursDto> coursDtoList = new ArrayList<>();
+            for(Cours cours : coursList){
+                coursDtoList.add(this.coursEntityToDto(cours));
+            }
+            v.setParticipe_A(coursDtoList);
         }
-        v.setParticipe_A(coursDtoList);
+
         return v;
     }
 
@@ -248,12 +257,15 @@ public class MapperServiceImpl implements MapperService {
         Composante composante = filiere_langue.getDepend_De();
         filiere_langueDto.setDepend_De(this.composanteEntityToDto(composante));
 
-        List<Cours> coursList = filiere_langue.getCoursList();
-        List<CoursDto> coursDtoList = new ArrayList<>();
-        for(Cours cours : coursList){
-            coursDtoList.add(this.coursEntityToDto(cours));
+        if(filiere_langue.getCoursList() != null){
+            List<Cours> coursList = filiere_langue.getCoursList();
+            List<CoursDto> coursDtoList = new ArrayList<>();
+            for(Cours cours : coursList){
+                coursDtoList.add(this.coursEntityToDto(cours));
+            }
+            filiere_langueDto.setCoursList(coursDtoList);
         }
-        filiere_langueDto.setCoursList(coursDtoList);
+
         return filiere_langueDto;
     }
 
@@ -272,12 +284,15 @@ public class MapperServiceImpl implements MapperService {
         ComposanteDto composanteDto = filiere_langueDto.getDepend_De();
         filiere_langue.setDepend_De(this.composanteDtoToEntity(composanteDto));
 
-        List<CoursDto> coursDtoList = filiere_langueDto.getCoursList();
-        List<Cours> coursList = new ArrayList<>();
-        for(CoursDto coursDto: coursDtoList){
-            coursList.add(this.coursDtoToEntiy(coursDto));
+        if(filiere_langueDto.getCoursList() != null){
+            List<CoursDto> coursDtoList = filiere_langueDto.getCoursList();
+            List<Cours> coursList = new ArrayList<>();
+            for(CoursDto coursDto: coursDtoList){
+                coursList.add(this.coursDtoToEntiy(coursDto));
+            }
+            filiere_langue.setCoursList(coursList);
         }
-        filiere_langue.setCoursList(coursList);
+
         return filiere_langue;
     }
 
@@ -298,12 +313,15 @@ public class MapperServiceImpl implements MapperService {
         Cours cours = creneau.getCours();
         creneauDto.setCours(this.coursEntityToDto(cours));
 
-        List<Seance_Formation> seance_formations = creneau.getSeanceFormationList();
-        List<Seance_FormationDto> seanceFormationDtoList = new ArrayList<>();
-        for(Seance_Formation seance_formation : seance_formations){
-            seanceFormationDtoList.add(this.seanceFormationEntityToDto(seance_formation));
+        if(creneau.getSeanceFormationList() != null){
+            List<Seance_Formation> seance_formations = creneau.getSeanceFormationList();
+            List<Seance_FormationDto> seanceFormationDtoList = new ArrayList<>();
+            for(Seance_Formation seance_formation : seance_formations){
+                seanceFormationDtoList.add(this.seanceFormationEntityToDto(seance_formation));
+            }
+            creneauDto.setSeanceFormationList(seanceFormationDtoList);
         }
-        creneauDto.setSeanceFormationList(seanceFormationDtoList);
+
         return creneauDto;
     }
 
@@ -323,12 +341,15 @@ public class MapperServiceImpl implements MapperService {
         CoursDto coursDto = creneauDto.getCours();
         creneau.setCours(this.coursDtoToEntiy(coursDto));
 
-        List<Seance_FormationDto> seanceFormationDtoList = creneauDto.getSeanceFormationList();
-        List<Seance_Formation> seance_formations = new ArrayList<>();
-        for(Seance_FormationDto seance_formationDto : seanceFormationDtoList){
-            seance_formations.add(this.seanceFormationDtoToEntity(seance_formationDto));
+        if(creneauDto.getSeanceFormationList() != null){
+            List<Seance_FormationDto> seanceFormationDtoList = creneauDto.getSeanceFormationList();
+            List<Seance_Formation> seance_formations = new ArrayList<>();
+            for(Seance_FormationDto seance_formationDto : seanceFormationDtoList){
+                seance_formations.add(this.seanceFormationDtoToEntity(seance_formationDto));
+            }
+            creneau.setSeanceFormationList(seance_formations);
         }
-        creneau.setSeanceFormationList(seance_formations);
+
         return creneau;
     }
 
@@ -343,26 +364,34 @@ public class MapperServiceImpl implements MapperService {
         cours.setId(coursDto.getId());
         cours.setIntitule(coursDto.getIntitule());
 
-        List<CreneauDto> creneauDtoList = coursDto.getCreneauList();
-        List<Creneau> creneauList = new ArrayList<>();
-        for(CreneauDto creneauDto : creneauDtoList){
-            creneauList.add(this.creneauDtoToEntity(creneauDto));
+        if(coursDto.getCreneauList() != null){
+            List<CreneauDto> creneauDtoList = coursDto.getCreneauList();
+            List<Creneau> creneauList = new ArrayList<>();
+            for(CreneauDto creneauDto : creneauDtoList){
+                creneauList.add(this.creneauDtoToEntity(creneauDto));
+            }
+            cours.setCreneauList(creneauList);
         }
-        cours.setCreneauList(creneauList);
 
-        List<VacataireDto> vacataireDtos = coursDto.getVacataireList();
-        List<Vacataire> vacataires = new ArrayList<>();
-        for(VacataireDto vacataireDto : vacataireDtos){
-            vacataires.add(this.vacataireDtoToEntity(vacataireDto));
+        if(coursDto.getVacataireList() != null ){
+            List<VacataireDto> vacataireDtos = coursDto.getVacataireList();
+            List<Vacataire> vacataires = new ArrayList<>();
+            for(VacataireDto vacataireDto : vacataireDtos){
+                vacataires.add(this.vacataireDtoToEntity(vacataireDto));
+            }
+            cours.setVacataireList(vacataires);
         }
-        cours.setVacataireList(vacataires);
 
-        List<Filiere_LangueDto> filiere_langueDtos = coursDto.getFiliere_langueList();
-        List<Filiere_Langue> filiere_langueList = new ArrayList<>();
-        for(Filiere_LangueDto filiere_langueDto: filiere_langueDtos){
-            filiere_langueList.add(this.filiere_langueDtoToEntity(filiere_langueDto));
+
+        if(coursDto.getFiliere_langueList() != null){
+            List<Filiere_LangueDto> filiere_langueDtos = coursDto.getFiliere_langueList();
+            List<Filiere_Langue> filiere_langueList = new ArrayList<>();
+            for(Filiere_LangueDto filiere_langueDto: filiere_langueDtos){
+                filiere_langueList.add(this.filiere_langueDtoToEntity(filiere_langueDto));
+            }
+            cours.setFiliere_langueList(filiere_langueList);
         }
-        cours.setFiliere_langueList(filiere_langueList);
+
         return null;
     }
 
@@ -377,26 +406,33 @@ public class MapperServiceImpl implements MapperService {
         coursDto.setId(cours.getId());
         coursDto.setIntitule(cours.getIntitule());
 
-        List<Creneau> creneauList = cours.getCreneauList();
-        List<CreneauDto> creneauDtoList  = new ArrayList<>();
-        for(Creneau creneau: creneauList){
-            creneauDtoList.add(this.creneauEntityToDto(creneau));
+        if(cours.getCreneauList() != null){
+            List<Creneau> creneauList = cours.getCreneauList();
+            List<CreneauDto> creneauDtoList  = new ArrayList<>();
+            for(Creneau creneau: creneauList){
+                creneauDtoList.add(this.creneauEntityToDto(creneau));
+            }
+            coursDto.setCreneauList(creneauDtoList);
         }
-        coursDto.setCreneauList(creneauDtoList);
 
-        List<Vacataire> vacataireList = cours.getVacataireList();
-        List<VacataireDto> vacataireDtoList = new ArrayList<>();
-        for(Vacataire vacataire : vacataireList){
-            vacataireDtoList.add(this.vacataireEntityToDto(vacataire));
+        if(cours.getVacataireList()!= null){
+            List<Vacataire> vacataireList = cours.getVacataireList();
+            List<VacataireDto> vacataireDtoList = new ArrayList<>();
+            for(Vacataire vacataire : vacataireList){
+                vacataireDtoList.add(this.vacataireEntityToDto(vacataire));
+            }
+            coursDto.setVacataireList(vacataireDtoList);
         }
-        coursDto.setVacataireList(vacataireDtoList);
 
-        List<Filiere_Langue> filiere_langueList = cours.getFiliere_langueList();
-        List<Filiere_LangueDto> filiere_langueDtos = new ArrayList<>();
-        for (Filiere_Langue filiere_langue : filiere_langueList){
-            filiere_langueDtos.add(this.filiere_langueEntityToDto(filiere_langue));
+        if( cours.getFiliere_langueList() != null){
+            List<Filiere_Langue> filiere_langueList = cours.getFiliere_langueList();
+            List<Filiere_LangueDto> filiere_langueDtos = new ArrayList<>();
+            for (Filiere_Langue filiere_langue : filiere_langueList){
+                filiere_langueDtos.add(this.filiere_langueEntityToDto(filiere_langue));
+            }
+            coursDto.setFiliere_langueList(filiere_langueDtos);
         }
-        coursDto.setFiliere_langueList(filiere_langueDtos);
+
         return coursDto;
     }
 
@@ -410,14 +446,24 @@ public class MapperServiceImpl implements MapperService {
         ComposanteDto composanteDto = new ComposanteDto();
         composanteDto.setNomComposante(composante.getNomComposante());
         composanteDto.setId(composante.getId());
-        composanteDto.setResponsable(this.responsableEntityToDto(composante.getResponsable()));
 
-        List<Filiere_Langue> filiere_langueList = composante.getFiliere_langueList();
-        List<Filiere_LangueDto> filiere_langueDtoList = new ArrayList<>();
-        for(Filiere_Langue filiere_langue : filiere_langueList){
-            filiere_langueDtoList.add(this.filiere_langueEntityToDto(filiere_langue));
+        if(composante.getResponsableList() != null){
+            List<Responsable> responsableList = composante.getResponsableList();
+            List<ResponsableDto> responsableDtos = new ArrayList<>();
+            for(Responsable responsable: responsableList){
+                responsableDtos.add(this.responsableEntityToDto(responsable));
+            }
+            composanteDto.setResponsableDtos(responsableDtos);
         }
-        composanteDto.setFiliere_langueList(filiere_langueDtoList);
+        if(composante.getFiliere_langueList() != null){
+            List<Filiere_Langue> filiere_langueList = composante.getFiliere_langueList();
+            List<Filiere_LangueDto> filiere_langueDtoList = new ArrayList<>();
+            for(Filiere_Langue filiere_langue : filiere_langueList){
+                filiere_langueDtoList.add(this.filiere_langueEntityToDto(filiere_langue));
+            }
+            composanteDto.setFiliere_langueList(filiere_langueDtoList);
+        }
+
         return composanteDto;
     }
 
@@ -431,14 +477,24 @@ public class MapperServiceImpl implements MapperService {
         Composante composante = new Composante();
         composante.setNomComposante(composanteDto.getNomComposante());
         composante.setId(composanteDto.getId());
-        composante.setResponsable(this.responsableDtoToEntity(composanteDto.getResponsable()));
 
-        List<Filiere_LangueDto> filiere_langueDtoList = composanteDto.getFiliere_langueList();
-        List<Filiere_Langue> filiere_langueList = new ArrayList<>();
-        for(Filiere_LangueDto filiere_langueDto: filiere_langueDtoList){
-            filiere_langueList.add(this.filiere_langueDtoToEntity(filiere_langueDto));
+        if(composanteDto.getResponsableDtos() != null){
+            List<ResponsableDto> responsableDtoList = composanteDto.getResponsableDtos();
+            List<Responsable> responsables = new ArrayList<>();
+            for(ResponsableDto responsableDto: responsableDtoList){
+                responsables.add(this.responsableDtoToEntity(responsableDto));
+            }
+            composante.setResponsableList(responsables);
         }
-        composante.setFiliere_langueList(filiere_langueList);
+        if(composanteDto.getFiliere_langueList() != null){
+            List<Filiere_LangueDto> filiere_langueDtoList = composanteDto.getFiliere_langueList();
+            List<Filiere_Langue> filiere_langueList = new ArrayList<>();
+            for(Filiere_LangueDto filiere_langueDto: filiere_langueDtoList){
+                filiere_langueList.add(this.filiere_langueDtoToEntity(filiere_langueDto));
+            }
+            composante.setFiliere_langueList(filiere_langueList);
+        }
+
         return composante;
     }
 }
