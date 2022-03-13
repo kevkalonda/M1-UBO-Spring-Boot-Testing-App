@@ -23,9 +23,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
      */
     @Override
     public UtilisateurDto enregisterUtilisateur(UtilisateurDto utilisateurDto) {
-        Utilisateur utilisateur = utilisateurDtoToEntity(utilisateurDto);
+        MapperServiceImpl mapperService = new MapperServiceImpl();
+        Utilisateur utilisateur = mapperService.utilisateurDtoToEntity(utilisateurDto);
         utilisateur = this.utilisateurRepository.save(utilisateur);
-        return utilisateurEntityToDto(utilisateur);
+        return mapperService.utilisateurEntityToDto(utilisateur);
     }
 
     /**
@@ -36,8 +37,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
      */
     @Override
     public UtilisateurDto obtenirUtilisateurParId(Long idUtilisateur) {
+        MapperServiceImpl mapperService = new MapperServiceImpl();
         Utilisateur utilisateur = this.utilisateurRepository.findById(idUtilisateur).orElseThrow(() -> new EntityNotFoundException("Utilisateur not found"));
-        return utilisateurEntityToDto(utilisateur);
+        return mapperService.utilisateurEntityToDto(utilisateur);
     }
 
     /**
@@ -59,18 +61,26 @@ public class UtilisateurServiceImpl implements UtilisateurService {
      */
     @Override
     public List<UtilisateurDto> obtenirTousLesUtulisateurs() {
+        MapperServiceImpl mapperService = new MapperServiceImpl();
         List<UtilisateurDto> utilisateurDtos = new ArrayList<>();
         List<Utilisateur> utilisateurs = this.utilisateurRepository.findAll();
         utilisateurs.forEach(utilisateur -> {
-            utilisateurDtos.add(utilisateurEntityToDto(utilisateur));
+            utilisateurDtos.add(mapperService.utilisateurEntityToDto(utilisateur));
         });
         return null;
     }
-    private Utilisateur utilisateurDtoToEntity(UtilisateurDto utilisateurDto){
 
-        return null;
+    /**
+     * @param login
+     * @param motDePass
+     * @return
+     */
+    @Override
+    public Long obtenirUtilisateurParLoginEtMotDePass(String login, String motDePass) {
+        Utilisateur utilisateur = this.utilisateurRepository.findByLoginMotDePass(login, motDePass);
+        MapperServiceImpl mapperService = new MapperServiceImpl();
+        UtilisateurDto utilisateurDto = mapperService.utilisateurEntityToDto(utilisateur);
+        return utilisateurDto.getId();
     }
-    private UtilisateurDto utilisateurEntityToDto(Utilisateur utilisateur){
-        return null;
-    }
+
 }

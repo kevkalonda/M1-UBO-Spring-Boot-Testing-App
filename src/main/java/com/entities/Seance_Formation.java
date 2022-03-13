@@ -13,13 +13,13 @@ public class Seance_Formation {
     /**
      * association avec la table Vacataire
      */
-    @OneToOne
+    @ManyToOne
     private Vacataire effectue_par;
 
     /**
      * association avec la table Creneau
      */
-    @OneToOne
+    @ManyToOne
     private Creneau est_Planifie_sur;
 
     private int estEffectue;

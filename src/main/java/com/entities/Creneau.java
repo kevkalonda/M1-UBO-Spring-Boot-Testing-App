@@ -16,8 +16,9 @@ public class Creneau {
     private int duree;
     private Type_seanceDto type;
     private LocalDate date_heure;
+
     @OneToMany(mappedBy = "Id")
     private List<Seance_Formation> seanceFormationList;
-    @OneToOne
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Cours cours;
 }

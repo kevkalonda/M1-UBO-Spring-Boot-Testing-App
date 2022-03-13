@@ -17,12 +17,12 @@ public class Filiere_Langue {
     /**
      * association avec la table composante
      */
-    @OneToOne
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Composante depend_De;
 
     /**
      * association avec la table cours
      */
-    @OneToMany(mappedBy = "Id")
+    @ManyToMany(mappedBy = "Id")
     private List<Cours> coursList;
 }

@@ -12,7 +12,7 @@ public class Composante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @OneToOne
+    @OneToMany(mappedBy = "Id")
     private List<Responsable> responsableList;
 
     private String nomComposante;

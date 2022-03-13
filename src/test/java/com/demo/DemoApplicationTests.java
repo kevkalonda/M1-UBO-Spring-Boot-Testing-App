@@ -6,13 +6,17 @@ import com.dtos.ResponsableDto;
 import com.entities.Seance_Formation;
 import com.services.impl.*;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 class DemoApplicationTests {
 	@Autowired
@@ -31,7 +35,8 @@ class DemoApplicationTests {
 	CoursServiceImpl coursService;
 	@Autowired
 	ComposanteServiceImpl composanteService;
-	@Test
+
+	/*@Test
 	void addGestionnaire() {
 		GestionnaireDto gestionnaireDto = new GestionnaireDto();
 		gestionnaireDto.setId(null);
@@ -42,8 +47,27 @@ class DemoApplicationTests {
 		gestionnaireDto.setMotDePasse("1234");
 		//System.out.println(gestionnaireDto.toString());
 		gestionnaireService.enregistrerGestionnaire(gestionnaireDto);
-	}
+	}*/
+
 	@Test
+	void addComposante(){
+		ComposanteDto composanteDto = new ComposanteDto();
+		composanteDto.setNomComposante("UFR Langue");
+		composanteDto.setId(null);
+		long id = 3;
+		ResponsableDto responsableDto = new ResponsableDto();
+		ResponsableDto responsableDto2 = new ResponsableDto();
+		responsableDto2.setId((long)2);
+		responsableDto.setId(id);
+		List<ResponsableDto> responsableDtoList = new ArrayList<>();
+		responsableDtoList.add(responsableDto);
+		responsableDtoList.add(responsableDto2);
+		composanteDto.setResponsableDtos(responsableDtoList);
+
+		composanteService.enregistrerComposante(composanteDto);
+		System.out.println(composanteDto.getResponsableDtos().toString());
+	}
+	/*@Test
 	void add(){
 		ResponsableDto responsableDto = new ResponsableDto();
 		responsableDto.setId(null);
@@ -52,17 +76,14 @@ class DemoApplicationTests {
 		responsableDto.setPrenom("lionel");
 		responsableDto.setMail("lm10@gmail.com");
 		responsableDto.setLogin("messi");
+		long id =6;
+		ComposanteDto composanteDto = new ComposanteDto();
+		composanteDto.setId(id);
 
-		/*ComposanteDto composanteDto = new ComposanteDto();
-		composanteDto.setNomComposante("UFR Science");
-		composanteDto.setId();
-		composanteDto.setFiliere_langueList(null);
-		composanteDto.setResponsable(responsableDto);*/
-		responsableDto.setEst_Rattache_A(null);
-		//composanteService.enregistrerComposante(composanteDto);
+		responsableDto.setEst_Rattache_A(composanteDto);
 		responsableService.enregistrerResponsable(responsableDto);
 
-	}
+	}*/
 
 
 }

@@ -14,10 +14,10 @@ public class Cours {
 
     private String intitule;
 
-    @OneToMany(mappedBy = "Id")
+    @ManyToMany(mappedBy = "Id")
     private List<Vacataire> vacataireList;
 
-    @OneToMany(mappedBy = "Id")
+    @ManyToMany(mappedBy = "Id")
     private List<Filiere_Langue> filiere_langueList;
 
     @OneToMany(mappedBy = "Id")

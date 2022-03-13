@@ -8,6 +8,7 @@ import com.entities.Filiere_Langue;
 import com.entities.Responsable;
 import com.repositories.ComposanteRepository;
 import com.services.ComposanteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -17,6 +18,8 @@ import java.util.List;
 @Service("composanteService")
 public class ComposanteServiceImpl implements ComposanteService {
 
+
+
     private ComposanteRepository composanteRepository;
     public ComposanteServiceImpl(ComposanteRepository composanteRepos){
         this.composanteRepository= composanteRepos;
@@ -25,6 +28,8 @@ public class ComposanteServiceImpl implements ComposanteService {
     @Override
     public ComposanteDto enregistrerComposante(ComposanteDto composanteDto) {
         MapperServiceImpl mapperService = new MapperServiceImpl();
+
+
         //conversion de Dto à l'entité
         Composante composante = mapperService.composanteDtoToEntity(composanteDto);
         //enregistrement de l'entité
