@@ -17,14 +17,10 @@ import java.util.List;
 @RequestMapping("/utilisateur")
 public class UtilisateurController {
     private final UtilisateurServiceImpl utilisateurService;
-    private  final GestionnaireServiceImpl gestionnaireService;
-    private final VacataireServiceImpl vacataireService;
-    private  final ResponsableServiceImpl responsableService;
-    public UtilisateurController(UtilisateurServiceImpl utilisateurService, VacataireServiceImpl vacataireService, GestionnaireServiceImpl gestionnaireService,ResponsableServiceImpl responsableService ){
+
+    public UtilisateurController(UtilisateurServiceImpl utilisateurService ){
         this.utilisateurService = utilisateurService;
-        this.gestionnaireService = gestionnaireService;
-        this.responsableService = responsableService;
-        this.vacataireService = vacataireService;
+     
     }
 
     /**
@@ -54,27 +50,6 @@ public class UtilisateurController {
     @PostMapping
     public UtilisateurDto enregistrerUtilisateur(final @RequestBody UtilisateurDto responsableDto){
         return this.utilisateurService.enregisterUtilisateur(responsableDto);
-    }
-
-    @GetMapping("/connexion")
-    public String connexion(final @RequestBody String longin, final @RequestBody String motDePass){
-        Long id = this.utilisateurService.obtenirUtilisateurParLoginEtMotDePass(longin,motDePass);
-        String typeUser ="";
-        ResponsableDto responsableDto = this.responsableService.obtenirResponsableParId(id);
-        if(responsableDto.getId() == null){
-            GestionnaireDto gestionnaireDto = this.gestionnaireService.obtenirGestionnaireParId(id);
-            if(gestionnaireDto.getId() == null){
-                VacataireDto vacataireDto = this.vacataireService.obtenirVacataireParId(id);
-                if(vacataireDto.getId() != null){
-                    typeUser = "Vacataire";
-                }
-            }else{
-                typeUser ="Gestionnaire";
-            }
-        }else{
-            typeUser ="Responsable";
-        }
-        return  typeUser;
     }
 
     /**

@@ -70,17 +70,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return null;
     }
 
-    /**
-     * @param login
-     * @param motDePass
-     * @return
-     */
-    @Override
-    public Long obtenirUtilisateurParLoginEtMotDePass(String login, String motDePass) {
-        Utilisateur utilisateur = this.utilisateurRepository.findByLoginMotDePass(login, motDePass);
-        MapperServiceImpl mapperService = new MapperServiceImpl();
-        UtilisateurDto utilisateurDto = mapperService.utilisateurEntityToDto(utilisateur);
-        return utilisateurDto.getId();
-    }
+    
+  
 
 }

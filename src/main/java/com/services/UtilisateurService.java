@@ -32,11 +32,5 @@ public interface UtilisateurService {
      */
     List<UtilisateurDto> obtenirTousLesUtulisateurs();
 
-    /**
-     *
-     * @param login
-     * @param motDePass
-     * @return
-     */
-    Long obtenirUtilisateurParLoginEtMotDePass(String login, String motDePass);
+   
 }
