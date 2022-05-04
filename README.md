@@ -1,4 +1,4 @@
-Projet initiation Spring Gloria & Kevin
+Projet initiation Spring 
 --
 
 L'Api est en attente sur le port 3200.
